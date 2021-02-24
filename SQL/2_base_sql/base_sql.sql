@@ -1,8 +1,8 @@
---Перечислить все таблицы и первичные ключи в базе данных
+--Tables and primary keys
 
---	 Название таблицы 	Первичный ключ
+--	 Table 					Key
 --	inventory       		inventory_id
---	film_actor			actor_id, film_id
+--	film_actor				actor_id, film_id
 --	actor					actor_id
 --	film					film_id
 --	language				languahe_id
@@ -20,27 +20,27 @@
 --	orders					id
 
 
---вывести всех неактивных покупателей
+--not active buyers 
 select concat(t.first_name, ' ',t.last_name) as customer  from public.customer as t
 where t.active = 1
 
---вывести все фильмы, выпущенные в 2006 году
+--all films in 2006 year
 select film.title, film.release_year from film
 where film.release_year ='2006'
 
---вывести 10 последних платежей за прокат фильмов
+--  10 last payments for  the films rent 
 select * from payment p 
 order by p.payment_date desc 
 limit 10
 
----вывести первичные ключи через запрос. Для написания простого запроса можете воспользоваться information_schema.table_constraints
+---primary keys
 select distinct kcu.table_name, kcu.column_name
 from information_schema.key_column_usage kcu
 join information_schema.table_constraints tc on tc.constraint_name = kcu.constraint_name 
 where lower(tc.constraint_type) = 'primary key'
 order by kcu.table_name 
 
---расширить запрос с первичными ключами, добавив информацию по типу данных information_schema.columns
+--primary keys and data type
 select distinct kcu.table_name, kcu.column_name, c.data_type 
 from information_schema.key_column_usage kcu
 join information_schema.table_constraints tc on tc.constraint_name = kcu.constraint_name 
