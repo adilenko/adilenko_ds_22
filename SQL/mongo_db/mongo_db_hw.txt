@@ -1,0 +1,18 @@
+use staff
+
+db.createCollection("department")
+
+db.department.insertMany( [{ firstname: "Jon",
+  lastname: "Snow",
+  age: 55,
+  contacts: {skype:"aaa", phone:"445-555-666"} },
+  {
+  firstname: "Martin",
+  lastname: "Iden",
+  contacts: {skype:"bbb", telegram:"ccc",phone:"123-456-789"} 
+  }
+ ]) 
+ 
+db.department.aggregate ([
+   {$addFields:{ numberOfContacts:{$size:{$objectToArray:"$contacts"}}}}
+  ])
