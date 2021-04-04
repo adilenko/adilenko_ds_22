@@ -117,7 +117,7 @@ select departure, arrival
  select distinct departure, arrival
  from  aeroport_city
  )
--- убераю зеркальные данные
+-- убираю зеркальные данные
  select a1.departure, a1.arrival
  from cte_cities a1 
  where a1.departure > (select a2.departure
